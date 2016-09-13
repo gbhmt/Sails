@@ -4,6 +4,7 @@ require 'active_support/inflector'
 require 'erb'
 require_relative './session'
 require 'byebug'
+require_relative 'flash'
 
 
 class ControllerBase
@@ -27,6 +28,7 @@ class ControllerBase
     raise if already_built_response?
     @already_built_response = true
     session.store_session(@res)
+    flash.store_flash(@res)
   end
 
   # Populate the response with content.
@@ -38,6 +40,9 @@ class ControllerBase
     raise if already_built_response?
     @already_built_response = true
     session.store_session(@res)
+    debugger
+    flash.store_flash(@res)
+    debugger
   end
 
   # use ERB and binding to evaluate templates
@@ -53,6 +58,11 @@ class ControllerBase
   def session
     @session ||= Session.new(@req)
   end
+
+  def flash
+    @flash ||= Flash.new(@req)
+  end
+
 
   # use this with the router to call action_name (:index, :show, :create...)
   def invoke_action(name)

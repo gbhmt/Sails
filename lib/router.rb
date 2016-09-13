@@ -61,7 +61,7 @@ class Router
   def run(req, res)
     matched_route = match(req)
     if matched_route
-      matched_route.run
+      matched_route.run(req, res)
     else
       res.status = 404
       res.write("That page does not exist")

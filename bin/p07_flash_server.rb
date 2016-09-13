@@ -50,9 +50,11 @@ class DogsController < ControllerBase
     @dog = Dog.new(params["dog"])
     if @dog.save
       flash[:notice] = "Saved dog successfully"
+      debugger
       redirect_to "/dogs"
     else
       flash.now[:errors] = @dog.errors
+      debugger
       render :new
     end
   end
