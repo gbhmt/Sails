@@ -4,19 +4,20 @@ class Flash
   attr_accessor :old_content, :new_content
   def initialize(req)
     @new_content = {}
+    @old_content = {}
     if req.cookies['_rails_lite_app']
       @old_content = JSON.parse(req.cookies['_rails_lite_app'])
     end
   end
 
   def [](key)
-    @new_content[key]
-    @old_content[key]
+    @new_content[key.to_s]
+    @old_content[key.to_s]
   end
 
   def []=(key, val)
-    @new_content[key] = val
-    @old_content[key] = val
+    @new_content[key.to_s] = val
+    @old_content[key.to_s] = val
   end
 
   def now

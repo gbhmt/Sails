@@ -40,9 +40,7 @@ class ControllerBase
     raise if already_built_response?
     @already_built_response = true
     session.store_session(@res)
-    debugger
     flash.store_flash(@res)
-    debugger
   end
 
   # use ERB and binding to evaluate templates
