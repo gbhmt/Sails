@@ -1,5 +1,4 @@
 require 'erb'
-require 'byebug'
 
 class ShowExceptions
   attr_reader :app
@@ -18,7 +17,7 @@ class ShowExceptions
   private
 
   def render_exception(e)
-    contents = File.read("lib/templates/rescue.html.erb")
+    contents = File.read("app/views/exception.html.erb")
     ERB.new(contents).result(binding)
   end
 
