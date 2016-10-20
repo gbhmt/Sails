@@ -42,7 +42,8 @@ class ControllerBase
   end
 
   def render(template_name)
-    template_file = "views/#{self.class.to_s.underscore}/#{template_name}.html.erb"
+    subdirectory = self.class.to_s.underscore.split("_controller")[0]
+    template_file = "views/#{subdirectory}/#{template_name}.html.erb"
     contents = File.read(template_file)
     template = ERB.new(contents).result(binding)
     render_content(template, "text/html")

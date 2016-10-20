@@ -1,5 +1,3 @@
-require 'byebug'
-
 class StaticAssets
   attr_reader :app
   def initialize(app)

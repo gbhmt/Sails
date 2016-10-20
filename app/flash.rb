@@ -5,8 +5,8 @@ class Flash
   def initialize(req)
     @new_content = {}
     @old_content = {}
-    if req.cookies['_rails_lite_app_flash']
-      @old_content = JSON.parse(req.cookies['_rails_lite_app_flash'])
+    if req.cookies['_sails_flash']
+      @old_content = JSON.parse(req.cookies['_sails_flash'])
     end
   end
 
@@ -26,7 +26,7 @@ class Flash
 
   def store_flash(res)
     json_content = @new_content.to_json
-    res.set_cookie('_rails_lite_app_flash', {
+    res.set_cookie('_sails_flash', {
       path: "/",
       value: json_content
     })
