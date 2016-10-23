@@ -12,7 +12,7 @@ class ControllerBase
   def initialize(req, res, route_params = {})
     @@protected ||= false
     @req, @res = req, res
-    @params = @req.params.merge(route_params)
+    @params = req.params.merge(route_params)
   end
 
   def self.protect_from_forgery
@@ -24,21 +24,21 @@ class ControllerBase
   end
 
   def redirect_to(url)
-    @res["Location"] = url
-    @res.status = 302
+    res["Location"] = url
+    res.status = 302
     raise if already_built_response?
     @already_built_response = true
-    session.store_session(@res)
-    flash.store_flash(@res)
+    session.store_session(res)
+    flash.store_flash(res)
   end
 
   def render_content(content, content_type)
-    @res["Content-Type"] = content_type
-    @res.write(content)
+    res["Content-Type"] = content_type
+    res.write(content)
     raise if already_built_response?
     @already_built_response = true
-    session.store_session(@res)
-    flash.store_flash(@res)
+    session.store_session(res)
+    flash.store_flash(res)
   end
 
   def render(template_name)

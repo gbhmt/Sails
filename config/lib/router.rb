@@ -7,11 +7,11 @@ class Route
   end
 
   def matches?(req)
-    (@pattern =~ req.path) && (@http_method == req.request_method.downcase.to_sym)
+    (pattern =~ req.path) && (http_method == req.request_method.downcase.to_sym)
   end
 
   def run(req, res)
-    match_data = @pattern.match(req.path)
+    match_data = pattern.match(req.path)
     route_params = {}
     match_data.names.each do |name|
       route_params[name] = match_data[name]
@@ -28,7 +28,7 @@ class Router
   end
 
   def add_route(pattern, method, controller_class, action_name)
-    @routes << Route.new(pattern, method, controller_class, action_name)
+    routes << Route.new(pattern, method, controller_class, action_name)
   end
 
   def draw(&proc)
@@ -42,7 +42,7 @@ class Router
   end
 
   def match(req)
-    @routes.each do |route|
+    routes.each do |route|
       return route if route.matches?(req)
     end
     nil

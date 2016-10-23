@@ -2,6 +2,9 @@ require 'rack'
 require_relative 'lib/static_assets'
 require_relative 'lib/show_exceptions'
 require_relative 'routes'
+require_relative 'db_connection'
+
+DBConnection.open('database.sql')
 
 app = Proc.new do |env|
   req = Rack::Request.new(env)
