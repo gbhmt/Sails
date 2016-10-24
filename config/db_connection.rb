@@ -1,8 +1,8 @@
 require 'sqlite3'
 
 PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
-SQL_FILE = 'database.sql'
-DB_FILE = 'database.db'
+SQL_FILE = File.expand_path("../database.sql", __FILE__)
+DB_FILE = File.expand_path("../database.db", __FILE__)
 
 class DBConnection
   def self.open(db_file_name)
