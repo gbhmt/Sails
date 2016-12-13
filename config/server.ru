@@ -4,7 +4,8 @@ require_relative 'lib/show_exceptions'
 require_relative 'routes'
 require_relative 'db_connection'
 
-DBConnection.open('database.sql')
+file = File.expand_path("../database.db", __FILE__)
+DBConnection.open(file)
 
 app = Proc.new do |env|
   req = Rack::Request.new(env)

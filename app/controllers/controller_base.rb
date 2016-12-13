@@ -43,7 +43,7 @@ class ControllerBase
 
   def render(template_name)
     subdirectory = self.class.to_s.underscore.split("_controller")[0]
-    template_file = "views/#{subdirectory}/#{template_name}.html.erb"
+    template_file = File.expand_path("..", File.dirname(__FILE__)) + "/views/#{subdirectory}/#{template_name}.html.erb"
     contents = File.read(template_file)
     template = ERB.new(contents).result(binding)
     render_content(template, "text/html")

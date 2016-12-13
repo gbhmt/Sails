@@ -12,7 +12,7 @@ CREATE TABLE humans (
   lname VARCHAR(255) NOT NULL,
   house_id INTEGER,
 
-  FOREIGN KEY(house_id) REFERENCES human(id)
+  FOREIGN KEY(house_id) REFERENCES house(id)
 );
 
 CREATE TABLE houses (
@@ -30,7 +30,7 @@ INSERT INTO
 VALUES
   (1, "Devon", "Watts", 1),
   (2, "Matt", "Rubens", 1),
-  (3, "Ned", "Ruggeri", 2),
+  (3, "Lorem", "Ipsum", 2),
   (4, "Catless", "Human", NULL);
 
 INSERT INTO

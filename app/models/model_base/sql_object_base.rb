@@ -1,4 +1,4 @@
-require_relative '../../config/db_connection'
+require_relative '../../../config/db_connection.rb'
 require 'active_support/inflector'
 require_relative 'searchable'
 require_relative 'associatable'

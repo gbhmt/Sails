@@ -4,6 +4,7 @@ PRINT_QUERIES = ENV['PRINT_QUERIES'] == 'true'
 SQL_FILE = File.expand_path("../database.sql", __FILE__)
 DB_FILE = File.expand_path("../database.db", __FILE__)
 
+
 class DBConnection
   def self.open(db_file_name)
     @db = SQLite3::Database.new(db_file_name)
@@ -20,6 +21,7 @@ class DBConnection
     ]
 
     commands.each { |command| `#{command}` }
+
     DBConnection.open(DB_FILE)
   end
 
