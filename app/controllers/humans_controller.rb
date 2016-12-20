@@ -8,9 +8,4 @@ class HumansController < ControllerBase
     render :index
   end
 
-
-  # def create
-  #   @human = Human.new(fname, lname, house_id)
-  #   @human.save
-  # end
 end

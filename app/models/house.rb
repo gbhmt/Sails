@@ -1,13 +1,10 @@
 require_relative 'model_base/sql_object_base.rb'
-require_relative 'house'
 
 
-
-class Human < SQLObjectBase
-  self.table_name = "humans"
+class House < SQLObjectBase
   finalize!
 
-  belongs_to :house
+  has_many :humans
 
   def initialize(params = {})
     super(params)
