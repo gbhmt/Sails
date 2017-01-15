@@ -42,10 +42,22 @@ class ControllerBase
   end
 
   def render(template_name)
-    subdirectory = self.class.to_s.underscore.split("_controller")[0]
-    template_file = File.expand_path("..", File.dirname(__FILE__)) + "/views/#{subdirectory}/#{template_name}.html.erb"
+    if template_name == :not_found
+      render_not_found
+    else
+      subdirectory = self.class.to_s.underscore.split("_controller")[0]
+      template_file = File.expand_path("..", File.dirname(__FILE__)) + "/views/#{subdirectory}/#{template_name}.html.erb"
+      contents = File.read(template_file)
+      template = ERB.new(contents).result(binding)
+      render_content(template, "text/html")
+    end
+  end
+
+  def render_not_found
+    template_file = File.expand_path("..", File.dirname(__FILE__)) + "/views/404.html"
     contents = File.read(template_file)
     template = ERB.new(contents).result(binding)
+    res.status = 404
     render_content(template, "text/html")
   end
 

@@ -11,7 +11,11 @@ class HumansController < ControllerBase
 
   def show
     @human = Human.find(params[:id].to_i)
-    render :show
+    if @human.nil?
+      render :not_found
+    else
+      render :show
+    end
   end
 
 end
