@@ -6,12 +6,12 @@ require_relative 'human'
 class Cat < SQLObjectBase
   finalize!
 
-  belongs_to :human,
+  belongs_to :owner,
     foreign_key: :owner_id,
     primary_key: :id,
     class_name: 'Human'
 
-  has_one :house, :human, :house
+  has_one_through :house, :owner, :house
 
   def initialize(params = {})
     super(params)

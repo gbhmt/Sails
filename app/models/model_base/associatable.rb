@@ -88,7 +88,6 @@ module Associatable
   end
 
   def has_many_through(name, through_name, source_name)
-    debugger
     define_method(name.to_sym) do
       through_options = self.class.assoc_options[through_name]
       source_options = through_options.model_class.assoc_options[source_name]

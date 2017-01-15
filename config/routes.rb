@@ -9,5 +9,6 @@ ROUTER.draw do
   get Regexp.new("^/humans/(?<id>\\d+)$"), HumansController, :show
   get Regexp.new("^/houses$"), HousesController, :index
   get Regexp.new("^/houses/(?<id>\\d+)$"), HousesController, :show
+  get Regexp.new("^/cats/(?<id>\\d+)$"), CatsController, :show
 
 end
