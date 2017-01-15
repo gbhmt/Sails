@@ -1,6 +1,5 @@
 require_relative 'controller_base'
 require_relative '../models/human.rb'
-require 'byebug'
 
 class HumansController < ControllerBase
 
@@ -11,11 +10,7 @@ class HumansController < ControllerBase
 
   def show
     @human = Human.find(params[:id].to_i)
-    if @human.nil?
-      render :not_found
-    else
-      render :show
-    end
+    not_found if @human.nil?
   end
 
 end

@@ -27,6 +27,10 @@ class Router
     @routes = []
   end
 
+  def not_found
+    Route.new('/not_found', "get", ControllerBase, "not_found")
+  end
+
   def add_route(pattern, method, controller_class, action_name)
     routes << Route.new(pattern, method, controller_class, action_name)
   end
@@ -53,8 +57,7 @@ class Router
     if matched_route
       matched_route.run(req, res)
     else
-      res.status = 404
-      res.write("That page does not exist")
+      not_found.run(req, res)
     end
   end
 end
