@@ -1,5 +1,6 @@
 require 'active_support/inflector'
 require_relative '../../../config/db_connection'
+require 'byebug'
 
 class AssocOptions
   attr_accessor(
@@ -46,18 +47,18 @@ end
 module Associatable
 
   def belongs_to(name, options = {})
-    options = BelongsToOptions.new(name, options)
-    assoc_options[name] = options
+    self.assoc_options[name] = BelongsToOptions.new(name, options)
     define_method(name.to_sym) do
+      options = self.class.assoc_options[name]
       foreign_key = self.send(options.foreign_key)
       options.model_class.where(id: foreign_key).first
     end
   end
 
   def has_many(name, options = {})
-    options = HasManyOptions.new(name, self.to_s, options)
-
+    self.assoc_options[name] = HasManyOptions.new(name, self.to_s, options)
     define_method(name.to_sym) do
+      options = self.class.assoc_options[name]
       options.model_class.where("#{options.foreign_key}" => id)
     end
   end
@@ -72,7 +73,6 @@ module Associatable
       source_primary_key = source_options.primary_key
       through_foreign_key = through_options.foreign_key
       source_foreign_key = source_options.foreign_key
-
       results = DBConnection.execute(<<-SQL, self.send(through_foreign_key))
         SELECT
           #{source_table}.*
@@ -82,6 +82,31 @@ module Associatable
           #{source_table} ON #{through_table}.#{source_foreign_key} = #{source_table}.#{source_primary_key}
         WHERE
           #{through_table}.#{through_primary_key} = ?
+      SQL
+      source_options.model_class.parse_all(results).first
+    end
+  end
+
+  def has_many_through(name, through_name, source_name)
+    debugger
+    define_method(name.to_sym) do
+      through_options = self.class.assoc_options[through_name]
+      source_options = through_options.model_class.assoc_options[source_name]
+      through_table = through_options.table_name
+      source_table = source_options.table_name
+      through_primary_key = through_options.primary_key
+      source_primary_key = source_options.primary_key
+      through_foreign_key = through_options.foreign_key
+      source_foreign_key = source_options.foreign_key
+      results = DBConnection.execute(<<-SQL, self.send(through_primary_key))
+        SELECT
+          #{source_table}.*
+        FROM
+          #{through_table}
+        JOIN
+          #{source_table} ON #{through_table}.#{through_primary_key} = #{source_table}.#{source_foreign_key}
+        WHERE
+          #{through_table}.#{through_foreign_key} = ?
       SQL
       source_options.model_class.parse_all(results).first
     end
