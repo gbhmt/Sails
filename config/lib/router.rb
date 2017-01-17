@@ -1,3 +1,4 @@
+require 'byebug'
 class Route
   attr_reader :pattern, :http_method, :controller_class, :action_name
 
@@ -13,8 +14,10 @@ class Route
   def run(req, res)
     match_data = pattern.match(req.path)
     route_params = {}
-    match_data.names.each do |name|
-      route_params[name.to_sym] = match_data[name]
+    if match_data
+      match_data.names.each do |name|
+        route_params[name.to_sym] = match_data[name]
+      end
     end
     controller_class.new(req, res, route_params).invoke_action(action_name)
   end

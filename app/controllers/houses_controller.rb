@@ -5,12 +5,11 @@ class HousesController < ControllerBase
 
   def index
     @houses = House.all
-    render :index
   end
 
   def show
     @house = House.find(params[:id].to_i)
-    render :show
+    not_found if @house.nil?
   end
-  
+
 end
