@@ -227,13 +227,10 @@ To run the demo, download `demo.zip` and follow these steps the command line:
   * localhost:3000/humans
   * localhost:3000/houses
   * localhost:3000/cats
+
+#### Dependencies
  
- #### Dependencies
- 
- [Ruby](https://www.ruby-lang.org/en/)
-
-
-
+[Ruby](https://www.ruby-lang.org/en/)
 
 
 ### Future Improvements
