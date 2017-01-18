@@ -5,12 +5,12 @@ require_relative 'human'
 class House < SQLObjectBase
   finalize!
 
-  has_many :humans,
+  has_many :residents,
     foreign_key: :house_id,
     primary_key: :id,
     class_name: 'Human'
 
-  has_many_through :cats, :humans, :cats
+  has_many_through :cats, :residents, :cats
 
   def initialize(params = {})
     super(params)

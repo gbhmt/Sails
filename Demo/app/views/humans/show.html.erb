@@ -1,0 +1,12 @@
+<h2>Name: <%= @human.full_name %><h2>
+<h3>Home Address:
+  <a href="/houses/<%= @human.house.id %>"><%= @human.house.address %></a>
+</h3>
+<h3>Cats:
+  <% @human.cats.each do |cat| %>
+    <a href="/cats/<%= cat.id %>"><%= cat.name %></a><%= ', ' unless cat.id == @human.cats.last.id %>
+  <% end %>
+  <%= 'None :(' if @human.cats.empty? %>
+</h3>
+
+<a href='/humans'><h3>All Humans</h3>

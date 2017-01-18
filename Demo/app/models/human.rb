@@ -18,6 +18,10 @@ class Human < SQLObjectBase
     super(params)
   end
 
+  def full_name
+    fname + ' ' + lname
+  end
+
   def errors
     @errors ||= []
   end
